@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cursoandroid.primeiroapp.fescyclingrevf">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/trike"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/trike"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.Ch4ConfigActivity"
+            android:label="@string/CH_4">
+        </activity>
+        <activity
+            android:name=".activity.Ch3ConfigActivity"
+            android:label="@string/CH_3">
+        </activity>
+        <activity
+            android:name=".activity.Ch2ConfigActivity"
+            android:label="@string/CH_2">
+        </activity>
+        <activity
+            android:name=".activity.Ch1ConfigActivity"
+            android:label="@string/CH_1">
+        </activity>
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

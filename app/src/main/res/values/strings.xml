@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Fes Cycling App</string>
+    <string name="CH_4">Channel 4</string>
+    <string name="CH_3">Channel 3</string>
+    <string name="CH_2">Channel 2</string>
+    <string name="CH_1">Channel 1</string>
+</resources>
