@@ -167,48 +167,48 @@ public class MainActivity extends AppCompatActivity {
         channelParameters[0] = new Channel(
                 0,
                 35,             //frequency
-                600,                //pulse width
-                45,             //amplitude
-                215,            //start
-                315,            //end
+                500,                //pulse width
+                40,//45,             //amplitude
+                160,//215,            //start
+                260,//315,            //end
                 false               //state
         );
         //DEFAULT CONFIGURATIONS FOR CHANNEL 1 LEFT
         channelParameters[1] = new Channel(
                 1,
                 35,
-                600,
-                50,
-                35,
-                135,
+                500,
+                45,//50,
+                340,//35,
+                80,//135,
                 false
         );
         //DEFAULT CONFIGURATIONS FOR CHANNEL 2 RIGHT
         channelParameters[2] = new Channel(
                 2,
                 35,
-                600,
-                25,
-                295,
-                355,
+                500,
+                40,//25,
+                240,//295,
+                300,//355,
                 false
         );
         //DEFAULT CONFIGURATIONS FOR CHANNEL 2 LEFT
         channelParameters[3] = new Channel(
                 3,
                 35,
-                600,
-                30,
-                115,
-                175,
+                500,
+                45,//30,
+                60,//115,
+                120,//175,
                 false
         );
         //DEFAULT CONFIGURATIONS FOR CHANNEL 3 RIGHT
         channelParameters[4] = new Channel(
                 4,
                 35,
-                600,
-                50,
+                500,
+                40,//50,
                 330,
                 70,
                 false
@@ -217,8 +217,8 @@ public class MainActivity extends AppCompatActivity {
         channelParameters[5] = new Channel(
                 5,
                 35,
-                600,
-                50,
+                500,
+                45,//50,
                 150,
                 250,
                 false
@@ -227,24 +227,24 @@ public class MainActivity extends AppCompatActivity {
         channelParameters[6] = new Channel(
                 6,
                 35,
-                600,
-                35,
-                335,
-                95,
+                500,
+                40,//35,
+                280,//335,
+                40,//95,
                 false
         );
         //DEFAULT CONFIGURATIONS FOR CHANNEL 4 LEFT
         channelParameters[7] = new Channel(
                 7,
                 35,
-                600,
-                40,
-                155,
-                275,
+                500,
+                45,//40,
+                100,//155,
+                220,//275,
                 false
         );
 
-        displayUpdate();    //update parameters on Screen
+        displayUpdateThread();    //update parameters on Screen
 
         //SCREEN TRANSITIONS
         buttonCH1.setOnClickListener(new View.OnClickListener() {
@@ -294,8 +294,8 @@ public class MainActivity extends AppCompatActivity {
                     if (x <= 550) channelParameters[i].setChannelWidth(x + 50);
                     else channelParameters[i].setChannelWidth(600);
                 }
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                if (fesStartedFlag) sendParameters(true);
+                displayUpdateThread();
             }
         });
         buttonMinus50us.setOnClickListener(new View.OnClickListener() {
@@ -307,11 +307,11 @@ public class MainActivity extends AppCompatActivity {
                     if (x >= 300) channelParameters[i].setChannelWidth(x - 50);
                     else channelParameters[i].setChannelWidth(250);
                 }
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                displayUpdateThread();
+                if (fesStartedFlag) sendParameters(true);
             }
         });
-        buttonPlus5mA = findViewById(R.id.buttonPlus5mA);
+        //buttonPlus5mA = findViewById(R.id.buttonPlus5mA);
         buttonPlus5mA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -321,11 +321,11 @@ public class MainActivity extends AppCompatActivity {
                     if (x > 95) channelParameters[i].setChannelAmplitude(100);
                     else channelParameters[i].setChannelAmplitude(x + 5);
                 }
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                displayUpdateThread();
+                if (fesStartedFlag) sendParameters(true);
             }
         });
-        buttonPlus2mA = findViewById(R.id.buttonPlus2mA);
+        //buttonPlus2mA = findViewById(R.id.buttonPlus2mA);
         buttonPlus2mA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,11 +335,11 @@ public class MainActivity extends AppCompatActivity {
                     if (x > 98) channelParameters[i].setChannelAmplitude(100);
                     else channelParameters[i].setChannelAmplitude(x + 2);
                 }
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                displayUpdateThread();
+                if (fesStartedFlag) sendParameters(true);
             }
         });
-        buttonPlus1mA = findViewById(R.id.buttonPlus1mA);
+        //buttonPlus1mA = findViewById(R.id.buttonPlus1mA);
         buttonPlus1mA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -348,11 +348,11 @@ public class MainActivity extends AppCompatActivity {
                     x = channelParameters[i].getChannelAmplitude();
                     if (x < 100) channelParameters[i].setChannelAmplitude(x + 1);
                 }
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                displayUpdateThread();
+                if (fesStartedFlag) sendParameters(true);
             }
         });
-        buttonMinus5mA = findViewById(R.id.buttonMinus5mA);
+        //buttonMinus5mA = findViewById(R.id.buttonMinus5mA);
         buttonMinus5mA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -362,11 +362,11 @@ public class MainActivity extends AppCompatActivity {
                     if (x > 5) channelParameters[i].setChannelAmplitude(x - 5);
                     else channelParameters[i].setChannelAmplitude(0);
                 }
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                displayUpdateThread();
+                if (fesStartedFlag) sendParameters(true);
             }
         });
-        buttonMinus2mA = findViewById(R.id.buttonMinus2mA);
+        //buttonMinus2mA = findViewById(R.id.buttonMinus2mA);
         buttonMinus2mA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -376,11 +376,11 @@ public class MainActivity extends AppCompatActivity {
                     if (x > 2) channelParameters[i].setChannelAmplitude(x - 2);
                     else channelParameters[i].setChannelAmplitude(0);
                 }
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                displayUpdateThread();
+                if (fesStartedFlag) sendParameters(true);
             }
         });
-        buttonMinus1mA = findViewById(R.id.buttonMinus1mA);
+        //buttonMinus1mA = findViewById(R.id.buttonMinus1mA);
         buttonMinus1mA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -389,28 +389,28 @@ public class MainActivity extends AppCompatActivity {
                     x = channelParameters[i].getChannelAmplitude();
                     if (x >= 1) channelParameters[i].setChannelAmplitude(x - 1);
                 }
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                displayUpdateThread();
+                if (fesStartedFlag) sendParameters(true);
             }
         });
 
         //GLOBAL PARAMETERS (CADENCE TRANCKING)
-        buttonPlus1Rpm = findViewById(R.id.buttonPlus1Rpm);
+        //buttonPlus1Rpm = findViewById(R.id.buttonPlus1Rpm);
         buttonPlus1Rpm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(setPointValue<60)setPointValue++;
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                displayUpdateThread();
+                if (fesStartedFlag) sendParameters(false);
             }
         });
-        buttonMinus1Rpm = findViewById(R.id.buttonMinus1Rpm);
+        //buttonMinus1Rpm = findViewById(R.id.buttonMinus1Rpm);
         buttonMinus1Rpm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(setPointValue>20)setPointValue--;
-                displayUpdate();
-                if (fesStartedFlag) sendParameters();
+                displayUpdateThread();
+                if (fesStartedFlag) sendParameters(false);
             }
         });
 
@@ -429,7 +429,7 @@ public class MainActivity extends AppCompatActivity {
                         textMessages.setTextColor(Color.BLUE);
                         fesChronometer.setBase(SystemClock.elapsedRealtime());
                         fesChronometer.start();
-                        sendParameters();
+                        sendParameters(true);
                     } else {
                         //stop FES
                         fesStartedFlag = false;
@@ -467,11 +467,11 @@ public class MainActivity extends AppCompatActivity {
                         // Device Bluetooth is enabled
                         // Here you will have to update the MAC adddress of your module
                         // or implement a connection screen to facilitate this proccess.
-                        System.out.println("FesMsg: Result = " + btAdapter.getBondedDevices());
+                        //System.out.println("FesMsg: Result = " + btAdapter.getBondedDevices());
                         //hC05 = btAdapter.getRemoteDevice("20:16:10:31:92:63"); //EstimuladorTiago
                         hC05 = btAdapter.getRemoteDevice("20:13:09:26:01:02"); //EstimuladorTRIKE
-                        //hC05 = btAdapter.getRemoteDevice("5C:C9:D3:62:D8:EF");//laptop
-                        System.out.println("FesMsg: Name = " + hC05.getName());
+                        //hC05 = btAdapter.getRemoteDevice("FC:A8:9A:00:2A:1E");//PLACA NOVA TiTi-FEScyc
+                        //System.out.println("FesMsg: Name = " + hC05.getName());
 
                         if (!isModuleConnected) {
                             btSocket = null;
@@ -481,7 +481,7 @@ public class MainActivity extends AppCompatActivity {
                             do {
                                 try {
                                     btSocket = hC05.createRfcommSocketToServiceRecord(mUUID);
-                                    System.out.println("FesMsg: Socket = " + btSocket);
+                                    //System.out.println("FesMsg: Socket = " + btSocket);
                                     btSocket.connect();
                                     if (btSocket.isConnected()) {
                                         isModuleConnected = true;
@@ -491,7 +491,7 @@ public class MainActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 counterTries++;
-                                System.out.println("FesMsg: trying...#" + counterTries);
+                                //System.out.println("FesMsg: trying...#" + counterTries);
                             } while (counterTries < 2 && isModuleConnected == false);
 
                             if (isModuleConnected == true) {
@@ -507,7 +507,7 @@ public class MainActivity extends AppCompatActivity {
                                 textMessages.setTextColor(Color.RED);
                                 try {
                                     btSocket.close();
-                                    System.out.println("FesMsg: disconnecting from module");
+                                    //System.out.println("FesMsg: disconnecting from module");
                                     textMessages.setText("Disconnected");
                                     textMessages.setTextColor(Color.BLACK);
                                 } catch (IOException e) {
@@ -521,7 +521,33 @@ public class MainActivity extends AppCompatActivity {
                             textMessages.setTextColor(Color.RED);
                             if(buttonSetUpParam.isChecked())buttonSetUpParam.toggle();
                             try {
-                                for (int i = 0; i < 78; i++) outputStream.write(0);
+                                //for (int i = 0; i < 78; i++) outputStream.write(0);
+                                outputStream.write((byte) 0);
+                                outputStream.write((byte) 0);       //off
+                                outputStream.write((byte) 0);
+                                outputStream.write((byte) setPointValue);   //rpm cadence
+
+                                int j, aux=0;
+                                for(j=0;j<8;j++)
+                                {
+                                    if(channelParameters[j].isChannelState())outputStream.write((byte) 1);  //CH ON
+                                    else outputStream.write((byte) 0);                                      //CH OFF
+                                    outputStream.write((byte) channelParameters[j].getChannelAmplitude());     //CH AMP
+                                    outputStream.write((byte) channelParameters[j].getChannelFrequency());     //CH FREQ
+                                    aux = channelParameters[j].getChannelWidth();
+                                    outputStream.write((byte) (aux>>8));                                     //CH Width(+)
+                                    outputStream.write((byte) aux);                                           //CH Width(-)
+                                    aux = channelParameters[j].getChannelStartAngle();
+                                    aux*=2;
+                                    outputStream.write((byte) (aux>>8));                                     //CH Start(+)°
+                                    outputStream.write((byte) aux);                                           //CH Start(-)°
+                                    aux = channelParameters[j].getChannelFinishAngle();
+                                    aux*=2;
+                                    outputStream.write((byte) (aux>>8));                                     //CH Finish(+)°
+                                    outputStream.write((byte) aux);                                           //CH Finish(-)°
+                                }
+                                outputStream.write((byte) 0);
+                                outputStream.write((byte) 1);
                                 outputStream.flush();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -546,12 +572,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Thread thread = new Thread() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 // Keep listening to the Bluetooth InputStream until an exception occurs
                 while (true) {
-                    System.out.println("\n\rFesMsg: ");
+                    //System.out.println("\n\rFesMsg: ");
                     if(isModuleConnected)
                     {
                         byte[] receivedData = new byte[13];     //same size as firmware
@@ -563,10 +589,10 @@ public class MainActivity extends AppCompatActivity {
                             inputStream.skip(inputStream.available());
                             for (int i = 0; i<13; i++) {        //same size as firmware
                                 receivedData[i] = (byte) inputStream.read();
-                                //if(i==0)System.out.println("FesMsg: start");
-                                //System.out.println("FesMsg: "+String.valueOf(receivedData[i]));
+                                if(i==0)System.out.println("\n\rFesMsg:");
+                                System.out.println(" "+String.valueOf(receivedData[i]));
                             }
-                            System.out.println("FesMsg: end");
+                            //System.out.println("FesMsg: end");
                             if(receivedData[0]==2){
                                 cadence = receivedData[2];
                                 cadence /= 100;
@@ -578,10 +604,11 @@ public class MainActivity extends AppCompatActivity {
                                 angle +=(receivedData[4]);//*2;
                                 if(angle<0)angle+=256;
                                 textActualAngle.setText("Actual angle: "+String.valueOf(angle)+"°");
-                                if(((mode == 3)||(mode == 2))&&(fesStartedFlag)) {
-                                    for (int i = 0; i < 8; i++)
+                                if(((mode == 3)||(mode == 2))&&(fesStartedFlag))
+                                {
+                                    for (int i = 0; i < 8; i++) {
                                         channelParameters[i].setChannelAmplitude(receivedData[i + 5]);
-                                        displayUpdate();
+                                    }
                                     //create datase and save data
                                     try{
                                         //create database
@@ -698,11 +725,12 @@ public class MainActivity extends AppCompatActivity {
                                                 "'"+c3lSte+"','"+c3lStA+"','"+c3lFnA+"','"+c3lFrq+"','"+c3lPwd+"','"+c3lAmp+"'," +
                                                 "'"+c4rSte+"','"+c4rStA+"','"+c4rFnA+"','"+c4rFrq+"','"+c4rPwd+"','"+c4rAmp+"'," +
                                                 "'"+c4lSte+"','"+c4lStA+"','"+c4lFnA+"','"+c4lFrq+"','"+c4lPwd+"','"+c4lAmp+"') ");
-                                                //"VALUES ('"+currentTime+"','"+angle+"','"+cadence+"','"+c1rSte+"','"+c1rStA+"','"+c1rFnA+"','"+c1rFrq+"','"+c1rPwd+"','"+c1rAmp+"') ");
+                                        //"VALUES ('"+currentTime+"','"+angle+"','"+cadence+"','"+c1rSte+"','"+c1rStA+"','"+c1rFnA+"','"+c1rFrq+"','"+c1rPwd+"','"+c1rAmp+"') ");
                                     }catch (Exception e)
                                     {
                                         e.printStackTrace();
                                     }
+                                    displayUpdateThread();
                                 }
                             }
                         } catch (IOException e) {
@@ -712,107 +740,120 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        };
-        thread.start();
+        }).start();
     }
 
-    public void displayUpdate(){
-        //CH1
-        if (!channelParameters[0].isChannelState()) {
-            textChannel1rParameters.setText("CH1 RIGHT OFF");
-            textChannel1rParameters.setTextColor(Color.RED);
-        } else {
-            textChannel1rParameters.setText("CH1 RIGHT ON");
-            textChannel1rParameters.setTextColor(getResources().getColor(R.color.greenON));
-        }
-        if (!channelParameters[1].isChannelState()) {
-            textChannel1lParameters.setText("CH1 LEFT OFF");
-            textChannel1lParameters.setTextColor(Color.RED);
-        } else {
-            textChannel1lParameters.setText("CH1 LEFT ON");
-            textChannel1lParameters.setTextColor(getResources().getColor(R.color.greenON));
-        }
-        textChannel1rParamAmpWdt.setText("Amp: "+String.valueOf(channelParameters[0].getChannelAmplitude())+
-                "mA Width: "+String.valueOf(channelParameters[0].getChannelWidth())+"us");
-        textChannel1lParamAmpWdt.setText("Amp: "+String.valueOf(channelParameters[1].getChannelAmplitude())+
-                "mA Width: "+String.valueOf(channelParameters[1].getChannelWidth())+"us");
-        textChannel1rParamAngle.setText(String.valueOf(channelParameters[0].getChannelStartAngle())+
-                "° to "+String.valueOf(channelParameters[0].getChannelFinishAngle())+"°");
-        textChannel1lParamAngle.setText(String.valueOf(channelParameters[1].getChannelStartAngle())+
-                "° to "+String.valueOf(channelParameters[1].getChannelFinishAngle())+"°");
-        //CH2
-        if (!channelParameters[2].isChannelState()) {
-            textChannel2rParameters.setText("CH2 RIGHT OFF");
-            textChannel2rParameters.setTextColor(Color.RED);
-        } else {
-            textChannel2rParameters.setText("CH2 RIGHT ON");
-            textChannel2rParameters.setTextColor(getResources().getColor(R.color.greenON));
-        }
-        if (!channelParameters[3].isChannelState()) {
-            textChannel2lParameters.setText("CH2 LEFT OFF");
-            textChannel2lParameters.setTextColor(Color.RED);
-        } else {
-            textChannel2lParameters.setText("CH2 LEFT ON");
-            textChannel2lParameters.setTextColor(getResources().getColor(R.color.greenON));
-        }
-        textChannel2rParamAmpWdt.setText("Amp: "+String.valueOf(channelParameters[2].getChannelAmplitude())+
-                "mA Width: "+String.valueOf(channelParameters[2].getChannelWidth())+"us");
-        textChannel2lParamAmpWdt.setText("Amp: "+String.valueOf(channelParameters[3].getChannelAmplitude())+
-                "mA Width: "+String.valueOf(channelParameters[3].getChannelWidth())+"us");
-        textChannel2rParamAngle.setText(String.valueOf(channelParameters[2].getChannelStartAngle())+
-                "° to "+String.valueOf(channelParameters[2].getChannelFinishAngle())+"°");
-        textChannel2lParamAngle.setText(String.valueOf(channelParameters[3].getChannelStartAngle())+
-                "° to "+String.valueOf(channelParameters[3].getChannelFinishAngle())+"°");
-        //CH3
-        if (!channelParameters[4].isChannelState()) {
-            textChannel3rParameters.setText("CH3 RIGHT OFF");
-            textChannel3rParameters.setTextColor(Color.RED);
-        } else {
-            textChannel3rParameters.setText("CH3 RIGHT ON");
-            textChannel3rParameters.setTextColor(getResources().getColor(R.color.greenON));
-        }
-        if (!channelParameters[5].isChannelState()) {
-            textChannel3lParameters.setText("CH3 LEFT OFF");
-            textChannel3lParameters.setTextColor(Color.RED);
-        } else {
-            textChannel3lParameters.setText("CH3 LEFT ON");
-            textChannel3lParameters.setTextColor(getResources().getColor(R.color.greenON));
-        }
-        textChannel3rParamAmpWdt.setText("Amp: "+String.valueOf(channelParameters[4].getChannelAmplitude())+
-                "mA Width: "+String.valueOf(channelParameters[4].getChannelWidth())+"us");
-        textChannel3lParamAmpWdt.setText("Amp: "+String.valueOf(channelParameters[5].getChannelAmplitude())+
-                "mA Width: "+String.valueOf(channelParameters[5].getChannelWidth())+"us");
-        textChannel3rParamAngle.setText(String.valueOf(channelParameters[4].getChannelStartAngle())+
-                "° to "+String.valueOf(channelParameters[4].getChannelFinishAngle())+"°");
-        textChannel3lParamAngle.setText(String.valueOf(channelParameters[5].getChannelStartAngle())+
-                "° to "+String.valueOf(channelParameters[5].getChannelFinishAngle())+"°");
-        //CH4
-        if (!channelParameters[6].isChannelState()) {
-            textChannel4rParameters.setText("CH4 RIGHT OFF");
-            textChannel4rParameters.setTextColor(Color.RED);
-        } else {
-            textChannel4rParameters.setText("CH4 RIGHT ON");
-            textChannel4rParameters.setTextColor(getResources().getColor(R.color.greenON));
-        }
-        if (!channelParameters[7].isChannelState()) {
-            textChannel4lParameters.setText("CH4 LEFT OFF");
-            textChannel4lParameters.setTextColor(Color.RED);
-        } else {
-            textChannel4lParameters.setText("CH4 LEFT ON");
-            textChannel4lParameters.setTextColor(getResources().getColor(R.color.greenON));
-        }
-        textChannel4rParamAmpWdt.setText("Amp: "+String.valueOf(channelParameters[6].getChannelAmplitude())+
-                "mA Width: "+String.valueOf(channelParameters[6].getChannelWidth())+"us");
-        textChannel4lParamAmpWdt.setText("Amp: "+String.valueOf(channelParameters[7].getChannelAmplitude())+
-                "mA Width: "+String.valueOf(channelParameters[7].getChannelWidth())+"us");
-        textChannel4rParamAngle.setText(String.valueOf(channelParameters[6].getChannelStartAngle())+
-                "° to "+String.valueOf(channelParameters[6].getChannelFinishAngle())+"°");
-        textChannel4lParamAngle.setText(String.valueOf(channelParameters[7].getChannelStartAngle())+
-                "° to "+String.valueOf(channelParameters[7].getChannelFinishAngle())+"°");
+    //public void displayUpdate(){
+    private void displayUpdateThread(){
+        new Thread()
+        {
+            public void run() {
+                try{
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //CH1
+                            if (!channelParameters[0].isChannelState()) {
+                                textChannel1rParameters.setText("CH1 RIGHT OFF");
+                                textChannel1rParameters.setTextColor(Color.RED);
+                            } else {
+                                textChannel1rParameters.setText("CH1 RIGHT ON");
+                                textChannel1rParameters.setTextColor(getResources().getColor(R.color.greenON));
+                            }
+                            if (!channelParameters[1].isChannelState()) {
+                                textChannel1lParameters.setText("CH1 LEFT OFF");
+                                textChannel1lParameters.setTextColor(Color.RED);
+                            } else {
+                                textChannel1lParameters.setText("CH1 LEFT ON");
+                                textChannel1lParameters.setTextColor(getResources().getColor(R.color.greenON));
+                            }
+                            textChannel1rParamAmpWdt.setText(""+String.valueOf(channelParameters[0].getChannelAmplitude())+
+                                    "mA "+String.valueOf(channelParameters[0].getChannelWidth())+"us "+String.valueOf(channelParameters[0].getChannelFrequency())+"Hz");
+                            textChannel1lParamAmpWdt.setText(""+String.valueOf(channelParameters[1].getChannelAmplitude())+
+                                    "mA "+String.valueOf(channelParameters[1].getChannelWidth())+"us "+String.valueOf(channelParameters[1].getChannelFrequency())+"Hz");
+                            textChannel1rParamAngle.setText(String.valueOf(channelParameters[0].getChannelStartAngle())+
+                                    "° to "+String.valueOf(channelParameters[0].getChannelFinishAngle())+"°");
+                            textChannel1lParamAngle.setText(String.valueOf(channelParameters[1].getChannelStartAngle())+
+                                    "° to "+String.valueOf(channelParameters[1].getChannelFinishAngle())+"°");
+                            //CH2
+                            if (!channelParameters[2].isChannelState()) {
+                                textChannel2rParameters.setText("CH2 RIGHT OFF");
+                                textChannel2rParameters.setTextColor(Color.RED);
+                            } else {
+                                textChannel2rParameters.setText("CH2 RIGHT ON");
+                                textChannel2rParameters.setTextColor(getResources().getColor(R.color.greenON));
+                            }
+                            if (!channelParameters[3].isChannelState()) {
+                                textChannel2lParameters.setText("CH2 LEFT OFF");
+                                textChannel2lParameters.setTextColor(Color.RED);
+                            } else {
+                                textChannel2lParameters.setText("CH2 LEFT ON");
+                                textChannel2lParameters.setTextColor(getResources().getColor(R.color.greenON));
+                            }
+                            textChannel2rParamAmpWdt.setText(""+String.valueOf(channelParameters[2].getChannelAmplitude())+
+                                    "mA "+String.valueOf(channelParameters[2].getChannelWidth())+"us "+String.valueOf(channelParameters[2].getChannelFrequency())+"Hz");
+                            textChannel2lParamAmpWdt.setText(""+String.valueOf(channelParameters[3].getChannelAmplitude())+
+                                    "mA "+String.valueOf(channelParameters[3].getChannelWidth())+"us "+String.valueOf(channelParameters[3].getChannelFrequency())+"Hz");
+                            textChannel2rParamAngle.setText(String.valueOf(channelParameters[2].getChannelStartAngle())+
+                                    "° to "+String.valueOf(channelParameters[2].getChannelFinishAngle())+"°");
+                            textChannel2lParamAngle.setText(String.valueOf(channelParameters[3].getChannelStartAngle())+
+                                    "° to "+String.valueOf(channelParameters[3].getChannelFinishAngle())+"°");
+                            //CH3
+                            if (!channelParameters[4].isChannelState()) {
+                                textChannel3rParameters.setText("CH3 RIGHT OFF");
+                                textChannel3rParameters.setTextColor(Color.RED);
+                            } else {
+                                textChannel3rParameters.setText("CH3 RIGHT ON");
+                                textChannel3rParameters.setTextColor(getResources().getColor(R.color.greenON));
+                            }
+                            if (!channelParameters[5].isChannelState()) {
+                                textChannel3lParameters.setText("CH3 LEFT OFF");
+                                textChannel3lParameters.setTextColor(Color.RED);
+                            } else {
+                                textChannel3lParameters.setText("CH3 LEFT ON");
+                                textChannel3lParameters.setTextColor(getResources().getColor(R.color.greenON));
+                            }
+                            textChannel3rParamAmpWdt.setText(""+String.valueOf(channelParameters[4].getChannelAmplitude())+
+                                    "mA "+String.valueOf(channelParameters[4].getChannelWidth())+"us "+String.valueOf(channelParameters[4].getChannelFrequency())+"Hz");
+                            textChannel3lParamAmpWdt.setText(""+String.valueOf(channelParameters[5].getChannelAmplitude())+
+                                    "mA "+String.valueOf(channelParameters[5].getChannelWidth())+"us "+String.valueOf(channelParameters[5].getChannelFrequency())+"Hz");
+                            textChannel3rParamAngle.setText(String.valueOf(channelParameters[4].getChannelStartAngle())+
+                                    "° to "+String.valueOf(channelParameters[4].getChannelFinishAngle())+"°");
+                            textChannel3lParamAngle.setText(String.valueOf(channelParameters[5].getChannelStartAngle())+
+                                    "° to "+String.valueOf(channelParameters[5].getChannelFinishAngle())+"°");
+                            //CH4
+                            if (!channelParameters[6].isChannelState()) {
+                                textChannel4rParameters.setText("CH4 RIGHT OFF");
+                                textChannel4rParameters.setTextColor(Color.RED);
+                            } else {
+                                textChannel4rParameters.setText("CH4 RIGHT ON");
+                                textChannel4rParameters.setTextColor(getResources().getColor(R.color.greenON));
+                            }
+                            if (!channelParameters[7].isChannelState()) {
+                                textChannel4lParameters.setText("CH4 LEFT OFF");
+                                textChannel4lParameters.setTextColor(Color.RED);
+                            } else {
+                                textChannel4lParameters.setText("CH4 LEFT ON");
+                                textChannel4lParameters.setTextColor(getResources().getColor(R.color.greenON));
+                            }
+                            textChannel4rParamAmpWdt.setText(""+String.valueOf(channelParameters[6].getChannelAmplitude())+
+                                    "mA "+String.valueOf(channelParameters[6].getChannelWidth())+"us "+String.valueOf(channelParameters[6].getChannelFrequency())+"Hz");
+                            textChannel4lParamAmpWdt.setText(""+String.valueOf(channelParameters[7].getChannelAmplitude())+
+                                    "mA "+String.valueOf(channelParameters[7].getChannelWidth())+"us "+String.valueOf(channelParameters[7].getChannelFrequency())+"Hz");
+                            textChannel4rParamAngle.setText(String.valueOf(channelParameters[6].getChannelStartAngle())+
+                                    "° to "+String.valueOf(channelParameters[6].getChannelFinishAngle())+"°");
+                            textChannel4lParamAngle.setText(String.valueOf(channelParameters[7].getChannelStartAngle())+
+                                    "° to "+String.valueOf(channelParameters[7].getChannelFinishAngle())+"°");
 
-        textSetPoint.setText(String.valueOf(setPointValue)+"rpm");
+                            textSetPoint.setText(String.valueOf(setPointValue)+"rpm");
+                        }
+                    });
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -843,11 +884,11 @@ public class MainActivity extends AppCompatActivity {
                 channelParameters[7] = (Channel) data.getSerializableExtra("channel4parametersL");
             }
         }
-        displayUpdate();
-        if(fesStartedFlag)sendParameters();
+        displayUpdateThread();
+        if(fesStartedFlag)sendParameters(true);
     }//onActivityResult
 
-    public void sendParameters(){
+    public void sendParameters(boolean updateStimParameters){
         int aux=0, j;
 
         if(isModuleConnected){
@@ -859,17 +900,17 @@ public class MainActivity extends AppCompatActivity {
                 if(radioButtonManual.isChecked()){
                     outputStream.write((byte) 1);             //manual
                     mode =1;
-                    System.out.println("FesMsg: manual");
+                    //System.out.println("FesMsg: manual");
                 }
                 else if(radioButtonAutomatic.isChecked()) {
                     outputStream.write((byte) 2);    //automatic
                     mode =2;
-                    System.out.println("FesMsg: automatico");
+                    //System.out.println("FesMsg: automatico");
                 }
                 else if(radioButtonControl.isChecked()) {
                     outputStream.write((byte) 3);    //controle
                     mode = 3;
-                    System.out.println("FesMsg: controle");
+                    //System.out.println("FesMsg: controle");
                 }
                 else {
                     outputStream.write((byte) 0);       //off
@@ -898,7 +939,8 @@ public class MainActivity extends AppCompatActivity {
                     outputStream.write((byte) aux);                                           //CH Finish(-)°
                 }
                 outputStream.write((byte) 0);
-                outputStream.write((byte) 0);
+                if(updateStimParameters==true)outputStream.write((byte) 1);
+                else outputStream.write((byte) 0);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -906,5 +948,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-
